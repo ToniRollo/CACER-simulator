@@ -1972,7 +1972,7 @@ def cash_flows_per_user_per_plant(plant, user):
         
     #  REVENUES FROM ELECTRICITY BILLS RELATED TO TITOLARE POD AND MEMBERSHIP MATRIX E PLANT OPERATION MATRIX
     
-    if registry_plants[plant]["titolare_POD"] == user: 
+    if registry_plants[plant]["titolare_POD"] == user and registry_users[user]["type"] == "prosumer": 
         membership_matrix_user = pd.read_csv(config["filename_membership_matrix"], index_col=0, header=1).T[user] # month "YYYY-MM" as index
         plant_operation_matrix_plant = pd.read_excel(config["filename_plant_operation_matrix"], sheet_name= "plant_operation_matrix", index_col=0, header=1).T[plant] # month "YYYY-MM" as index
 
