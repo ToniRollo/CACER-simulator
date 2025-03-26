@@ -159,7 +159,7 @@ def run_user_type_bill(user_type):
                 elif "transport" in item: variation_col = "yearly_variation_transport"
                 else: variation_col = "yearly_variation_ogs"
 
-                user_load[item] = user_load["load_active_corrected"] * tariff * user_load[variation_col] # €
+                user_load[item] = user_load["load_active_corrected"] * tariff * user_load[variation_col] # [€]
 
             elif item in fixed_items:
                 user_load[item] = tariff / number_datapoints_in_year # € N.B la quota fissa è annuale, qui la ripartiamo per intervallo
@@ -171,37 +171,37 @@ def run_user_type_bill(user_type):
             # summing up all the cost for the items in the item_family
             item_family_cols = [col for col in user_load.columns if col.startswith(item_family)]
             # print(item_family_cols)
-            user_load[item_family + "_cost"] = user_load[item_family_cols].sum(axis=1) # €
+            user_load[item_family + "_cost"] = user_load[item_family_cols].sum(axis=1) # [€]
 
         # aggregating per type of tariff 
         for item_family in ["energy","fixed","power"]:
             # summing up all the cost for the items in the item_family
             item_family_cols = [col for col in user_load.columns if col.endswith(item_family)]
             # print(item_family_cols)
-            user_load[item_family + "_cost"] = user_load[item_family_cols].sum(axis=1) # + user_load["me_"+item_family+"_cost"]# €
+            user_load[item_family + "_cost"] = user_load[item_family_cols].sum(axis=1) # + user_load["me_"+item_family+"_cost"]# [€]
 
         assert (abs(user_load[["energy_cost","fixed_cost","power_cost"]].sum().sum() - user_load[["me_cost","transport_cost","ogs_cost"]].sum().sum()) < 1e-5), "ERROR in bills aggregation, something wrong"
 
         #  subtotal before taxes
-        user_load["subtotal_before_taxes"] = user_load["me_cost"] + user_load["transport_cost"] + user_load["ogs_cost"] # €
+        user_load["subtotal_before_taxes"] = user_load["me_cost"] + user_load["transport_cost"] + user_load["ogs_cost"] # [€]
 
         ######################################################
         # accise and iva (duty and VAT):
-        # if contractual power <=3, duties apply only to the share of energy above 150 kwh/month; for the rest, it applies to all consumtion
-        if power_range in ['0<P<=1.5', '1.5<P<=3']:
+        # for resident domestic users with contractual power <=3, duties apply only to the share of energy above 150 kwh/month; for the rest, it applies to all consumtion
+        if power_range in ['0<P<=1.5', '1.5<P<=3'] and category == "domestico":
             # calculating the cumulative sum for monthly values
             ## TBC whether the duties are applied to the consumed energy before or after the losses adjustment factor
             user_load["load_active_cumsum_monthly"] = user_load.groupby("month").apply(lambda grp: grp.load_active.cumsum()).reset_index(level=0,drop=True)
             user_load["load_active_duty"] = np.maximum(0,(user_load["load_active_cumsum_monthly"] - 150)) # share that exceeds the 150 kWh/month
             # duty
-            user_load["duty_cost"]   = duty * user_load["load_active_duty"] # €
+            user_load["duty_cost"]   = duty * (user_load["load_active_duty"]>0) * user_load["load_active"] # [€], if load_active_duty > 0, the duties are applied to load_active
         else:
-            user_load["duty_cost"]   = duty * user_load["load_active"] # €
+            user_load["duty_cost"]   = duty * user_load["load_active"] # [€]
 
         user_load["vat_cost"] = vat * (user_load["subtotal_before_taxes"] + user_load["duty_cost"])
 
         #  total after taxes
-        user_load["total_bill_cost"] = user_load["subtotal_before_taxes"] + user_load["duty_cost"] + user_load["vat_cost"] # €
+        user_load["total_bill_cost"] = user_load["subtotal_before_taxes"] + user_load["duty_cost"] + user_load["vat_cost"] # [€]
 
         cols = [col for col in user_load.columns if col.endswith("_cost")]
         cols.append("load_active")
@@ -212,13 +212,13 @@ def run_user_type_bill(user_type):
         undiscounted_bill_totals[scenario] = user_load["total_bill_cost"].sum()
 
         user_load_first_year = user_load[user_load["year_index"] == 0]
-        load_yr1 = user_load["load_active"].sum() # kWh
-        expense_yr1 = user_load["total_bill_cost"].sum() # €
-        average_cost_yr_1 = expense_yr1 / load_yr1 #  € / kWh
+        load_yr1 = user_load_first_year["load_active"].sum() # [kWh]
+        expense_yr1 = user_load_first_year["total_bill_cost"].sum() # [€]
+        average_cost_yr_1 = expense_yr1 / load_yr1 # [€ / kWh]
 
         print(f"Electricity withdrawn {scenario} in year 1:\t {load_yr1:,.1f} kWh")
         print(f"Electricity expenses {scenario} in year 1:\t {expense_yr1:,.2f} €")
-        print(f"\t--> Average cost {scenario} in year 1: \t {average_cost_yr_1:.3f} €/kWh")
+        print(f"\t--> Average cost {scenario} in year 1: \t\t {average_cost_yr_1:.3f} €/kWh")
 
         montly_totals.to_excel(writer, sheet_name= scenario) #saving for the record
 

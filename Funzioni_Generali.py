@@ -1351,3 +1351,5 @@ def save_simulation_results(simulation_name="test"):
     copy_folder_content(config["filename_recap"], destination_folder)
     output_file_docx = config["foldername_result_finance"] + recap["case_denomination"] + '.docx'
     copy_folder_content(output_file_docx, destination_folder)
+
+    print("\n**** All finance results saved! ****")

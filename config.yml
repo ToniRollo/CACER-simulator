@@ -1,6 +1,6 @@
 # time simulation
 start_date: 2025-01-01
-project_lifetime_yrs: 25
+project_lifetime_yrs: 20
 
 type_of_cacer: CER # CER; AUC; AID; NO_CACER
 
@@ -59,7 +59,7 @@ filename_output_xlsx_gen_pv: files\\gen_pv\\output_gen_pv.xlsx
 filename_output_csv_1kWp: files\\gen_pv\\output_1kWp.csv
 filename_output_xlsx_1kWp: files\\gen_pv\\output_1kWp.xlsx
 # filename energy
-filename_profili_CER_yml: files\\energy\\profili_CACER.yml #mi sa che si puo eliminare?
+filename_profili_CACER_yml: files\\energy\\profili_CACER.yml #mi sa che si puo eliminare?
 filename_CACER_energy_monthly: files\\energy\\CACER_energy_monthly.xlsx
 # filename_CACER_energy_quarterly: files\\energy\\CACER_energy_quarterly.csv
 filename_carichi: files\\energy\\carichi.csv
@@ -98,6 +98,7 @@ CER_fees: files\\incentivi\\CER_fees.yml
 filename_repartition_matrix: files\\finance\\repartition_matrix.xlsx
 # filename PZO
 filename_input_PZO: files\\PZO\\hourly_PZO_input.csv
+filename_input_PUN: files\\PZO\\PUN_input_data.csv
 filename_output_csv_PZO_data: files\\PZO\\output_PZO_data.csv
  # filename RID
 filename_RID_input: files\\RID\\RID_input.yml
