@@ -32,21 +32,6 @@ market_scenario: dossier_rivisto_2 # mettere una delle tipologie di scenario pos
 ###########
 # filename
 ###########
-
-# filename PF_analysis
-# filename_data: files\\PF_analysis\\data_Riccomassimo\\data - Riccomassimo.xlsx
-# filename_data: files\\PF_analysis\\data_Riccomassimo\\data - Riccomassimo - emulated.xlsx
-#
-# filename_data: files\\PF_analysis\\data_Riccomassimo\\data - Riccomassimo - DSM paper - 0.xlsx # reference case without other plants
-# filename_data: files\\PF_analysis\\data_Riccomassimo\\data - Riccomassimo - DSM paper - 1.xlsx # DSM 33 %
-# filename_data: files\\PF_analysis\\data_Riccomassimo\\data - Riccomassimo - DSM paper - 2.xlsx # DSM 66 %
-# filename_data: files\\PF_analysis\\data_Riccomassimo\\data - Riccomassimo - DSM paper - 3.xlsx # DSM 100 %
-#
-# filename_data: files\\PF_analysis\\data - Storo.xlsx
-# filename_data: files\\PF_analysis\\data - Storo_testing.xlsx
-#
-# filename_data: files\\PF_analysis\\data - Malawi.xlsx
-filename_data: files\\PF_analysis\\data - Malawi_mod.xlsx
 #
 # filename general
 filename_calendar: files\\general\\calendar.csv
@@ -61,9 +46,7 @@ filename_output_xlsx_1kWp: files\\gen_pv\\output_1kWp.xlsx
 # filename energy
 filename_profili_CACER_yml: files\\energy\\profili_CACER.yml #mi sa che si puo eliminare?
 filename_CACER_energy_monthly: files\\energy\\CACER_energy_monthly.xlsx
-# filename_CACER_energy_quarterly: files\\energy\\CACER_energy_quarterly.csv
 filename_carichi: files\\energy\\carichi.csv
-# filename_carichi: files\\energy\\carichi.hdf
 filename_carichi_noCER: files\\energy\\carichi_noCER.csv
 filename_CACER_energy_hourly: files\\energy\\CACER_energy_hourly.csv
 filename_valorization_shared_energy_hourly: files\\energy\\shared_energy_valorization_hourly.csv
@@ -71,18 +54,10 @@ filename_incentive_shared_energy_hourly: files\\energy\\shared_energy_incentive_
 filename_incentive_shared_energy_yearly: files\\energy\\shared_energy_incentive_yearly.csv
 filename_pod_energy_exchange: files\\energy\\user_type_energy_exchange.csv
 # filename energy\\input
-# filename_load: files\\energy\\input\\domestic_load_Riccomassimo\\aggregated_load_Riccomassimo.csv
-filename_load: files\\energy\\input\\industrial_load_Storo\\Data_aggregated_active_power.csv
-filename_power_factor: files\\energy\\input\\industrial_load_Storo\\Data_aggregated_power_factor.csv
-filename_reactive_power: files\\energy\\input\\industrial_load_Storo\\Data_aggregated_reactive_power.csv
 filename_user_load_arera: files\\energy\\input\\prelievo_orario_ARERA.csv # loads
 filename_carico_input: files\\energy\\input\\curve_carico_input.xlsx # file di output load 
 filename_emulated_load_profile: files\\energy\\input\\emulated_load_profile.csv
-# filename_emulated_load_profile: files\\energy\\input\\emulated_load_profile.hdf
 filename_DSM_emulated_load_profile: files\\energy\\input\\DSM_emulated_load_profile.csv
-# filename_DSM_emulated_load_profile: files\\energy\\input\\DSM_emulated_load_profile.hdf
-filename_real_productivity_profile: 
-  files\\energy\\input\\productivity_profile_Storo\\productivity_profile_other_plant_Storo.csv
 # filename energy\\input\\DSM_optimizer\\
 filename_injected_energy_optimizer: files\\energy\\input\\DSM_optimizer\\injected_energy_optimizer.csv
 # energy\\input\\load_emulator
@@ -91,7 +66,7 @@ filename_load_profiles_ls: files\\energy\\input\\load_emulator\\profiles_ls.csv
 filename_usage_probability: files\\energy\\input\\load_emulator\\appliance_usage_probability.xlsx
 filename_appliance: files\\energy\\input\\load_emulator\\appliances\\washing machine.csv
 filename_appliances_load: files\\energy\\input\\load_emulator\\appliance_load_profile.xlsx
-# filename incentivi
+# filename incentives
 filename_CACER_incentivi: files\\incentivi\\CACER_incentivi.csv
 filename_CACER_incentivi_per_configuration: files\\incentivi\\CACER_incentivi_per_configuration.csv
 CER_fees: files\\incentivi\\CER_fees.yml
@@ -118,7 +93,7 @@ filename_FM_yearly_results_last_simulation: files\\results_finance\\yearly_resul
 filename_FM_test: files\\results_finance\\test.csv
 filename_report: files\\report.yml
 # filename yaml
-input_FM_yml: files\\input_FM_new.yml # specifico per FM su excel, per mantenere uno storico
+input_FM_yml: files\\input_FM_new.yml
 input_FM_yml_new: files\\input_FM_new.yml
 filename_recap: files\\recap.yml
 filename_registry_plants_yml: files\\registry_plants.yml

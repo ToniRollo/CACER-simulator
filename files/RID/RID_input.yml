@@ -3,9 +3,9 @@ corrispettivi_unitari:
   PV:
     
     scaglione_0: 0 # [€ / kWp] per potenze di picco inferiori a 1 kWp
-    scaglione_1: 0.7 # [€ / kWp] per potenze di picco comprese fra 1 e 20 kWp
-    scaglione_2: 0.65 # [€ / kWp] per potenze di picco comprese fra 20 e 200 kWp
-    scaglione_3: 0.6 # [€ / kWp] per potenze di picco superiori a 200 kWp
+    threshold_1: 0.7 # [€ / kWp] per potenze di picco comprese fra 1 e 20 kWp
+    threshold_2: 0.65 # [€ / kWp] per potenze di picco comprese fra 20 e 200 kWp
+    threshold_3: 0.6 # [€ / kWp] per potenze di picco superiori a 200 kWp
     massimale: 10000 # [€ / anno]
 
 PMG: 
