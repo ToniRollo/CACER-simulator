@@ -1,3 +1,5 @@
+<img title="logo_RSE" src="assets\readme_images\logo_RSE.png" alt="logo_RSE" data-align="center" width="600">
+
 # CACER Simulator
 
 This repository contains a simulation tool for assessing the **economic**, **financial**, and **energy** performance of renewable energy sharing configurations such as CACER (Configurations for Renewable Energy Sharing in Collective Self-Consumption).
