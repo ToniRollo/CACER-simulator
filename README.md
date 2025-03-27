@@ -22,17 +22,17 @@ The simulator supports the evaluation of different collective self-consumption s
 
 ## Repository Structure
 
-- `assets/`: contains visual or auxiliary resources.
-- `files/`: input files and configuration data for simulations.
-- `Funzioni_Demand_Side_Management.py`: functions for simulating demand-side flexibility and management.
-- `Funzioni_Energy_Model.py`: core energy modeling functions for CACER simulations.
-- `Funzioni_Financial_Model.py`: functions for financial analysis and investment evaluation.
+- `assets/`: contains visual outputs or auxiliary resources.
+- `files/`: input/output files and configuration data for simulations.
+- `Funzioni_Demand_Side_Management.py`: functions for emulating the residential load profile and for simulating demand-side flexibility and management.
+- `Funzioni_Energy_Model.py`: core energy modeling functions for CACER simulations (photovoltaic productivity simulation, load profile extraction, etc.).
+- `Funzioni_Financial_Model.py`: functions for financial analysis and investment evaluation (Discounted Cash Flow analysis).
 - `Funzioni_Generali.py`: general-purpose utility functions used throughout the project.
-- `config.yml`: configuration file with key parameters for the simulations.
-- `main - CACER tutorial.ipynb`: interactive Jupyter Notebook with step-by-step instructions for using the simulator.
+- `config.yml`: configuration file with key parameters for the simulations and path of file and forlders.
+- `main - CACER tutorial.ipynb`: interactive Jupyter Notebook with step-by-step instructions for using the CACER simulator.
 - `reporting_v3.ipynb`: notebook to generate performance reports.
 - `reporting_v3.py`: standalone script for report generation.
-- `users CACER.xlsx`: example Excel file with user consumption and participation data.
+- `users CACER.xlsx`: example Excel file with user data.
 
 ## Prerequisites
 
