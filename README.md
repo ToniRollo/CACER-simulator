@@ -1,4 +1,6 @@
-<img title="logo_RSE" src="assets\readme_images\logo_RSE.PNG" alt="logo_RSE" data-align="center" width="600">
+<img title="logo_RSE" src="assets\readme_images\logo_RSE.PNG" alt="logo_RSE" data-align="center" width="400">
+
+---
 
 # CACER Simulator
 
