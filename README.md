@@ -16,7 +16,9 @@ The simulator supports the evaluation of different collective self-consumption s
 
 ## Flow chart CACER simulator
 
-<img title="Flow_chart" src="assets\readme_images\Flow_chart_simulator.png" alt="Flow_chart" data-align="center" width="600">
+<div style="text-align: center;">
+  <img src="assets/readme_images/Flow_chart_simulator.png" alt="Flow_chart" width="1000">
+</div>
 
 ## Repository Structure
 
