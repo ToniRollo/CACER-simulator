@@ -49,13 +49,17 @@ You’ll need:
 
 ---
 
+## 🔥 **New drop incoming!!**
+
 ## Main Functionalities
 
-`work in progress...`
+`🚨 PAY ATTENTION: ALL THE FOLLOWING FUNCTIONALITIES ARE ALREADY DEVELOPED IN THIS REPOSITORY AND HOW IT WORKS WILL BE EXPLAINED IN DETAIL LATER IN THIS SECTION `
 
 ### 1. Photovoltaic Productivity Simulator
 
 `work in progress...`
+
+`🚀 A tutorial main will be released later for this module!`
 
 ### 2. BESS Simulator
 
@@ -64,6 +68,8 @@ You’ll need:
 ### 3. Load Profile Domestic Users Emulator
 
 `work in progress...`
+
+`🚀 A tutorial main will be released later for this module!`
 
 #### 3.1. Demand Side Engagement Simulator
 
@@ -85,10 +91,12 @@ You’ll need:
 
 `work in progress...`
 
-#### 5.2. Incentives repartition Methodology
+#### 5.2. Incentives Repartition Methodology
 
 `work in progress...`
 
 ### 6. Grid Impact Simulator
 
 `work in progress...`
+
+`🚀 A tutorial main will be released later for this module!`
