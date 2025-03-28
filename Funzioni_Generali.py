@@ -20,6 +20,8 @@ import collections
 from yaml.representer import Representer
 yaml.SafeDumper.add_representer(collections.defaultdict, Representer.represent_dict)
 from ruamel.yaml import YAML
+import signal
+import psutil
 
 ##########################################################
 
@@ -1353,3 +1355,14 @@ def save_simulation_results(simulation_name="test"):
     copy_folder_content(output_file_docx, destination_folder)
 
     print("\n**** All finance results saved! ****")
+
+################################################################################################################################
+
+def kill_excel_processes():
+    for proc in psutil.process_iter(['pid', 'name']):
+        if proc.info['name'] and 'excel' in proc.info['name'].lower():
+            try:
+                os.kill(proc.info['pid'], signal.SIGTERM)
+                print(f"Killed Excel process: {proc.info['pid']}")
+            except Exception as e:
+                print(f"Could not kill Excel process {proc.info['pid']}: {e}")

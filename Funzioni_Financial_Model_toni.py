@@ -1068,7 +1068,7 @@ def FM_template():
     """
     config = yaml.safe_load(open("config.yml", 'r'))
     
-    # app = xw.App(visible = False)
+    app = xw.App(visible = False)
     wb = xw.Book(config["filename_input_FM_excel"])
     
     #importing the monthly calendar formatted as string "YYYY-MM" and we add the month number
@@ -1116,7 +1116,7 @@ def FM_template():
 
     df.to_csv(config["filename_FM_template"])
     wb.close()
-    # app.quit()
+    app.quit()
 
 #####################################################################################################
 def get_FM_template(user_category=None):
@@ -1189,7 +1189,7 @@ def create_ownership_matrix():
 
     config = yaml.safe_load(open("config.yml", 'r'))
 
-    # app = xw.App(visible = False)
+    app = xw.App(visible = False)
     wb = xw.Book(config["filename_input_FM_excel"])
     funding_scheme_repartition = wb.sheets["Funding scheme"]["A1"].options(pd.Series, header=1, index=True, expand='table').value.fillna(0).drop("Ownership",axis=1)
 
@@ -1288,7 +1288,7 @@ def create_ownership_matrix():
     writer.close()
 
     wb.close()
-    # app.quit()
+    app.quit()
 
     print("\nOwnership matrix created")
 
@@ -1299,7 +1299,7 @@ def create_investment_matrix():
 
     config = yaml.safe_load(open("config.yml", 'r'))
 
-    # app = xw.App(visible = False)
+    app = xw.App(visible = False)
     wb = xw.Book(config["filename_input_FM_excel"])
     funding_scheme_repartition = wb.sheets["Funding scheme"]["A1"].options(pd.Series, header=1, index=True, expand='table').value.fillna(0).drop("Ownership",axis=1)
 
@@ -1365,7 +1365,7 @@ def create_investment_matrix():
     inv_mat.replace(0,"").to_csv(config["filename_investment_matrix"])
     print(inv_mat.replace(0,"")*100)
     wb.close()
-    # app.quit()
+    app.quit()
 
     ####################################################################################################################################
 
@@ -1639,7 +1639,7 @@ def plant_capex_breakdown():
     # creating dictionary with all capex costs
     global capex_costs_per_item, scale_factor
     
-    # app = xw.App(visible = False)
+    app = xw.App(visible = False)
     wb = xw.Book(config["filename_input_FM_excel"])
     capex_costs_per_item = wb.sheets["CAPEX"]["capex_table"].options(pd.Series, header=1, index=True, expand='table').value
     scale_factor = wb.sheets["CAPEX"]["scale_factor_table"].options(pd.Series, header=1, index=False, expand='table').value
@@ -1694,7 +1694,7 @@ def plant_capex_breakdown():
         yaml.safe_dump(plants, f)
     
     wb.close()
-    # app.quit()
+    app.quit()
 
 ####################################################################################################################################
 
@@ -1723,7 +1723,7 @@ def cash_flows_per_user(user = "CACER"):
     user_plants = list(user_investment.index) # this is the list of the plants' names in which our user has shares
     recap = yaml.safe_load(open(config["filename_recap"], 'r'))
 
-    # app = xw.App(visible = False)
+    app = xw.App(visible = False)
     wb = xw.Book(config["filename_input_FM_excel"])
     active_cacer_kickoff = wb.sheets["CAPEX"]["active_cacer_kickoff"].value * (recap["type_of_cacer"] == "CER") # if not CER, then shall be 0, as no new legal entity is needed
     
@@ -1921,7 +1921,7 @@ def cash_flows_per_user(user = "CACER"):
     df_totals.T.to_excel(writer, sheet_name= "totals") #saving for the record
     writer.close() # if DCF_analysis() function uses xlwings, the writer must be closed !!!
     wb.close()
-    # app.quit()
+    app.quit()
     ################################################### Discounted Cash Flow and IRR ###############################################################    
 
     DCF_analysis(user) # discounted cash flow analysis on the obtained results
@@ -1972,7 +1972,7 @@ def cash_flows_per_user_per_plant(plant, user):
         
     #  REVENUES FROM ELECTRICITY BILLS RELATED TO TITOLARE POD AND MEMBERSHIP MATRIX E PLANT OPERATION MATRIX
     
-    if registry_plants[plant]["titolare_POD"] == user and registry_users[user]["type"] == "prosumer": 
+    if registry_plants[plant]["titolare_POD"] == user: 
         membership_matrix_user = pd.read_csv(config["filename_membership_matrix"], index_col=0, header=1).T[user] # month "YYYY-MM" as index
         plant_operation_matrix_plant = pd.read_excel(config["filename_plant_operation_matrix"], sheet_name= "plant_operation_matrix", index_col=0, header=1).T[plant] # month "YYYY-MM" as index
 
@@ -2100,7 +2100,6 @@ def cash_flows_per_plant(plant):
 
     # app = xw.App(visible=False) # opening in background
     wb = xw.Book(config["filename_input_FM_excel"])
-    
     capex_costs_per_item = wb.sheets["CAPEX"]["capex_table"].options(pd.Series, header=1, index=True, expand='table').value
     ground_mounted_factor = wb.sheets["CAPEX"]["capex_ground_factor"].value # valid for both capex and opex
     da_per_item = capex_costs_per_item.loc["amortization",:]
@@ -2290,10 +2289,8 @@ def cash_flows_per_plant(plant):
     df[totals_cols].T.to_excel(writer, sheet_name= "Totals") #saving for the record
     
     writer.close()
-
     # wb.close()
     # app.quit()
-
 def debt_and_interest_per_plant(loan, interest_rate_yrs, loan_start_month, loan_duration_yrs):
     """function adapted from: https://www.toptal.com/finance/cash-flow-consultants/python-cash-flow-model
     return a dataframe with interest and principal payments, beginning and ending balances, and net Disbursment/Repayment.
@@ -2338,10 +2335,8 @@ def opex_per_plant(plant, asset_value):
     Asset value is the economic value of the asset at commissionig, which is used to compute the insurance across asset lifetime"""
 
     config = yaml.safe_load(open("config.yml", 'r'))
-    
-    # app = xw.App(visible = False)
+    app = xw.App(visible = False)
     wb = xw.Book(config["filename_input_FM_excel"])
-
     opex_plant_table = wb.sheets["OPEX"]["opex_plant_table"].options(pd.Series, header=1, index=True, expand='table').value
     ground_mounted_factor = wb.sheets["OPEX"]["opex_ground_factor"].value # valid for both capex and opex
 
@@ -2399,7 +2394,7 @@ def opex_per_plant(plant, asset_value):
     opex_cols = [col for col in list(df.columns) if col.startswith("opex_")]
     assert sum(df[opex_cols].gt(0).any()) == 0, f"ERROR: some opex values in plant {plant} have positive sign. Being expenses, they must all be negative"
     wb.close()
-    # app.quit()
+    app.quit()
 
     return df
 
@@ -2529,7 +2524,7 @@ def DCF_analysis(user):
     df["DCF_cum"] = df["DCF"].cumsum()
 
     #saving
-    # app = xw.App(visible=False)
+    app = xw.App(visible=False)
     wb = xw.Book(filename_user)
     wb.sheets.add("DCF_monthly",after="totals")
     wb.sheets["DCF_monthly"].range("A1").value = df.T
@@ -2571,7 +2566,7 @@ def DCF_analysis(user):
 
     wb.save()
     wb.close()
-    # app.quit()
+    app.quit()
 
 def organize_simulation_results_for_reporting():
     """recreating the old structured filename_FM_results_last_simulation file. 
