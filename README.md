@@ -24,13 +24,13 @@ The simulator supports the evaluation of different collective self-consumption s
 
 - `assets/`: contains visual outputs or auxiliary resources.
 - `files/`: input/output files and configuration data for simulations.
-- `Funzioni_Demand_Side_Management.py`: functions for emulating the residential load profile and for simulating demand-side flexibility and management.
-- `Funzioni_Energy_Model.py`: core energy modeling functions for CACER simulations (photovoltaic productivity simulation, load profile extraction, etc.).
-- `Funzioni_Financial_Model.py`: functions for financial analysis and investment evaluation (Discounted Cash Flow analysis).
-- `Funzioni_Generali.py`: general-purpose utility functions used throughout the project.
+- `Functions_Load_Emulator_and_DSM.py`: functions for emulating the residential load profile and for simulating demand-side flexibility and management.
+- `Functions_Energy_Model.py`: core energy modeling functions for CACER simulations (photovoltaic productivity simulation, load profile extraction, etc.).
+- `Functions_Financial_Model.py`: functions for financial analysis and investment evaluation (Discounted Cash Flow analysis).
+- `Functions_General.py`: general-purpose utility functions used throughout the project.
 - `config.yml`: configuration file with key parameters for the simulations and path of file and forlders.
 - `main - CACER tutorial.ipynb`: interactive Jupyter Notebook with step-by-step instructions for using the CACER simulator.
-- `reporting_v3.ipynb`: notebook to generate performance reports.
+- `Reporting.ipynb`: notebook to generate performance reports.
 - `users CACER.xlsx`: example Excel file with user data.
 
 ## Prerequisites
@@ -67,36 +67,36 @@ You’ll need:
 
 ### 3. Load Profile Domestic Users Emulator
 
-`work in progress...`
+`⏳ work in progress...`
 
 `🚀 A tutorial main will be released later for this module!`
 
 #### 3.1. Demand Side Engagement Simulator
 
-`work in progress...`
+`⏳ work in progress...`
 
 #### 3.2. Optimal Demand Side Management Simulator
 
-`work in progress...`
+`⏳ work in progress...`
 
 ### 4. Bills Simulator
 
-`work in progress...`
+`⏳ work in progress...`
 
 ### 5. Discounted Cash Flow Simulator
 
-`work in progress...`
+`⏳ work in progress...`
 
 #### 5.1. Funding Scheme 
 
-`work in progress...`
+`⏳ work in progress...`
 
 #### 5.2. Incentives Repartition Methodology
 
-`work in progress...`
+`⏳ work in progress...`
 
 ### 6. Grid Impact Simulator
 
-`work in progress...`
+`⏳ work in progress...`
 
 `🚀 A tutorial main will be released later for this module!`
