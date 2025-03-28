@@ -9,12 +9,11 @@ import datetime
 import yaml
 from ruamel.yaml import YAML
 import xlwings as xw
-from xlwings.constants import DeleteShiftDirection
+# from xlwings.constants import DeleteShiftDirection
 import sys
 import time
 import csv
 import glob
-from openpyxl import Workbook
 import shutil
 import collections
 from yaml.representer import Representer
@@ -870,7 +869,7 @@ def edit_users_CACER(variable, user_type, value):
     """
 
     config = yaml.safe_load(open("config.yml", 'r'))
-    # app = xw.App(visible = False)
+    app = xw.App(visible = False)
     wb = xw.Book(config["filename_users_CACER_xls"])
     num_rows = len(wb.sheets["Utenti"]["A1"].options(pd.Series, header=1, index=True, expand='table').value)
 
@@ -895,14 +894,14 @@ def edit_users_CACER(variable, user_type, value):
 
     wb.save()
     wb.close()
-    # app.quit()
+    app.quit()
 
 ################################################################################################################################
 def clear_users_utenti_CACER():
     """resets the num column in the filename_users_CACER_xls to a series of nan. Could be needed f.i. when performing a sensitivity analysis on CACER members numerosity, or when activating or removing some specific users"""
 
     config = yaml.safe_load(open("config.yml", 'r'))
-    # app = xw.App(visible = False)
+    app = xw.App(visible = False)
     wb = xw.Book(config["filename_users_CACER_xls"])
     num_rows = len(wb.sheets["Utenti"]["A1"].options(pd.Series, header=1, index=True, expand='table').value)
 
@@ -919,7 +918,7 @@ def clear_users_utenti_CACER():
 
     wb.save()
     wb.close()
-    # app.quit()
+    app.quit()
 
 def edit_incentive_repartition_scheme(value):
     """edits the incentive repartition scheme in the "Scenario" sheet in the filename_input_FM_excel. It is sometimes needed when comparing different repartition schemes"""
@@ -927,13 +926,13 @@ def edit_incentive_repartition_scheme(value):
     config = yaml.safe_load(open("config.yml", 'r'))
     
     ###### WARNING: the use of xw.App can cause issues if the file is already opened... To be fixed ########################
-    # app = xw.App(visible = False)
+    app = xw.App(visible = False)
     wb = xw.Book(config["filename_input_FM_excel"])
     wb.sheets["Scenario"].range("incentives_repartition_scheme").value = value
 
     wb.save()
     wb.close()
-    # app.quit()
+    app.quit()
 
 def edit_opex_repartition_scheme(value):
     """edits the OPEX repartition scheme in the "Scenario" sheet in the filename_input_FM_excel. It is sometimes needed when comparing different repartition schemes"""
@@ -955,13 +954,13 @@ def edit_surplus_repartition_scheme(value):
     config = yaml.safe_load(open("config.yml", 'r'))
     
     ###### WARNING: the use of xw.App can cause issues if the file is already opened... To be fixed ########################
-    # app = xw.App(visible = False)
+    app = xw.App(visible = False)
     wb = xw.Book(config["filename_input_FM_excel"])
     wb.sheets["Scenario"].range("surplus_repartition_scheme").value = value
 
     wb.save()
     wb.close()
-    # app.quit()
+    app.quit()
 
 # UNNEEDED
 # def duplicate_and_rename_folder(source_folder_path, new_folder_path):

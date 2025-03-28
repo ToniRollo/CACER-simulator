@@ -1,4 +1,4 @@
-from Funzioni_Generali import (check_file_status, clear_folder_content, add_to_recap_yml, check_folder_exists, get_calendar, province_to_region, province_italian_to_english, location_italian_to_english)
+from Functions_Generali import (check_file_status, clear_folder_content, add_to_recap_yml, check_folder_exists, get_calendar, location_italian_to_english)
 import pandas as pd
 import numpy as np
 import calendar

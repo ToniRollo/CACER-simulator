@@ -14,9 +14,8 @@ import io
 import yaml
 import xlwings as xw
 import glob
-import shutil
-from Funzioni_Generali import check_file_status, province_to_region, get_monthly_calendar, add_to_recap_yml, clear_folder_content, get_calendar #,add_to_input_FM_yml
-from Funzioni_Energy_Model import get_input_gens_analysis
+from Functions_Generali import check_file_status, province_to_region, get_monthly_calendar, add_to_recap_yml, clear_folder_content, get_calendar #,add_to_input_FM_yml
+from Functions_Energy_Model import get_input_gens_analysis
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -1694,7 +1693,7 @@ def plant_capex_breakdown():
         yaml.safe_dump(plants, f)
     
     wb.close()
-    app.quit()
+    # app.quit()
 
 ####################################################################################################################################
 
@@ -1921,7 +1920,7 @@ def cash_flows_per_user(user = "CACER"):
     df_totals.T.to_excel(writer, sheet_name= "totals") #saving for the record
     writer.close() # if DCF_analysis() function uses xlwings, the writer must be closed !!!
     wb.close()
-    app.quit()
+    # app.quit()
     ################################################### Discounted Cash Flow and IRR ###############################################################    
 
     DCF_analysis(user) # discounted cash flow analysis on the obtained results
@@ -1972,7 +1971,7 @@ def cash_flows_per_user_per_plant(plant, user):
         
     #  REVENUES FROM ELECTRICITY BILLS RELATED TO TITOLARE POD AND MEMBERSHIP MATRIX E PLANT OPERATION MATRIX
     
-    if registry_plants[plant]["titolare_POD"] == user: 
+    if registry_plants[plant]["titolare_POD"] == user and registry_users[user]["type"] == "prosumer": 
         membership_matrix_user = pd.read_csv(config["filename_membership_matrix"], index_col=0, header=1).T[user] # month "YYYY-MM" as index
         plant_operation_matrix_plant = pd.read_excel(config["filename_plant_operation_matrix"], sheet_name= "plant_operation_matrix", index_col=0, header=1).T[plant] # month "YYYY-MM" as index
 
@@ -2098,8 +2097,9 @@ def cash_flows_per_plant(plant):
     da_item_list = ["da_" + x for x in item_list] 
     da_replacement_item_list = ["da_" + x for x in replacement_item_list] 
 
-    # app = xw.App(visible=False) # opening in background
+    app = xw.App(visible=False) # opening in background
     wb = xw.Book(config["filename_input_FM_excel"])
+    
     capex_costs_per_item = wb.sheets["CAPEX"]["capex_table"].options(pd.Series, header=1, index=True, expand='table').value
     ground_mounted_factor = wb.sheets["CAPEX"]["capex_ground_factor"].value # valid for both capex and opex
     da_per_item = capex_costs_per_item.loc["amortization",:]
@@ -2289,8 +2289,7 @@ def cash_flows_per_plant(plant):
     df[totals_cols].T.to_excel(writer, sheet_name= "Totals") #saving for the record
     
     writer.close()
-    # wb.close()
-    # app.quit()
+
 def debt_and_interest_per_plant(loan, interest_rate_yrs, loan_start_month, loan_duration_yrs):
     """function adapted from: https://www.toptal.com/finance/cash-flow-consultants/python-cash-flow-model
     return a dataframe with interest and principal payments, beginning and ending balances, and net Disbursment/Repayment.
@@ -2335,8 +2334,10 @@ def opex_per_plant(plant, asset_value):
     Asset value is the economic value of the asset at commissionig, which is used to compute the insurance across asset lifetime"""
 
     config = yaml.safe_load(open("config.yml", 'r'))
+    
     app = xw.App(visible = False)
     wb = xw.Book(config["filename_input_FM_excel"])
+
     opex_plant_table = wb.sheets["OPEX"]["opex_plant_table"].options(pd.Series, header=1, index=True, expand='table').value
     ground_mounted_factor = wb.sheets["OPEX"]["opex_ground_factor"].value # valid for both capex and opex
 
@@ -2394,7 +2395,7 @@ def opex_per_plant(plant, asset_value):
     opex_cols = [col for col in list(df.columns) if col.startswith("opex_")]
     assert sum(df[opex_cols].gt(0).any()) == 0, f"ERROR: some opex values in plant {plant} have positive sign. Being expenses, they must all be negative"
     wb.close()
-    app.quit()
+    # app.quit()
 
     return df
 
@@ -2523,7 +2524,7 @@ def DCF_analysis(user):
     df["DCF"] = df["FCF"] * df["discount_factor"]
     df["DCF_cum"] = df["DCF"].cumsum()
 
-    #saving
+    # saving
     app = xw.App(visible=False)
     wb = xw.Book(filename_user)
     wb.sheets.add("DCF_monthly",after="totals")
@@ -2566,7 +2567,7 @@ def DCF_analysis(user):
 
     wb.save()
     wb.close()
-    app.quit()
+    # app.quit()
 
 def organize_simulation_results_for_reporting():
     """recreating the old structured filename_FM_results_last_simulation file. 
