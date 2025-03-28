@@ -59,7 +59,7 @@ You’ll need:
 
 `work in progress...`
 
-`🚨 Pay attention: A tutorial main will be released later for this module!`
+`🚀 A tutorial main will be released later for this module!`
 
 ### 2. BESS Simulator
 
@@ -69,7 +69,7 @@ You’ll need:
 
 `work in progress...`
 
-`🚨 Pay attention: A tutorial main will be released later for this module!`
+`🚀 A tutorial main will be released later for this module!`
 
 #### 3.1. Demand Side Engagement Simulator
 
@@ -99,4 +99,4 @@ You’ll need:
 
 `work in progress...`
 
-`🚨 Pay attention: A tutorial main will be released later for this module!`
+`🚀 A tutorial main will be released later for this module!`
