@@ -1025,7 +1025,7 @@ def create_emulated_users(flag_last_dict = False, flag_optDSM = False, flag_all_
 
     if num_users == 0:
 
-        print('No emulated users found!') 
+        print('**** No emulated users found! ****') 
 
     else:
         start_day = config['start_date']

@@ -412,7 +412,7 @@ def CACER_energy_flows():
 
         df_user.to_csv(config["foldername_result_energy"]+"\\"+user+".csv")
 
-    print("\n All CER energy flows created! ")
+    print("\n**** All CACER energy flows created! ****")
 
 ###############################################################################################################################
 
@@ -1285,7 +1285,7 @@ def simulate_unstacked_productivity(result_ac_energies_gens_derated):
 
         result_ac_energies_unstacked[gen] = result_ac_energies_unstacked_df # [kWh]
 
-        print('     ' + str(gen) + ' completed!')
+        print('     ' + blue(str(gen)) + ' completed!')
 
     result_ac_energies_to_csv_df = pd.DataFrame() # creating the dataframe for the export
 
@@ -1496,7 +1496,7 @@ def CACER_shared_energy_for_TIP():
         - Two CSV files with the shared energy data for TIP: one with hourly data and another with yearly data.
     """
 
-    print(blue('\nCalculating shared energy for TIP:', ['bold']))
+    print(blue('\nCalculating shared energy for TIP:'))
     
     config = yaml.safe_load(open("config.yml", 'r'))
 
@@ -1593,7 +1593,7 @@ def CACER_shared_energy_for_TIP():
             df_results["Eprel_residual"] = df_results[['Eprel_residual',"zeros"]].max(axis=1)
 
             share = df_results[col_name].sum() / df_results[Econd_config].sum()
-            print(f"\tPlant {plant}, type {plat_user_type} share:\t {share*100:,.1f} %")
+            print(f"\tPlant {blue(plant)}, type {plat_user_type} share:\t {share*100:,.1f} %")
 
         assert abs(df_results[plant_cols].sum(axis=1).sum() - df_results[Econd_config].sum()) < 0.0001, "ERROR in plants' shares of shared energy. They don't add up"
         
@@ -1636,7 +1636,7 @@ def CACER_shared_energy_for_TIP():
 
         return
 
-    print("Shared energy for TIP exported")
+    print("\n**** Shared energy for TIP exported ****")
 
 ###############################################################################################################################
 
@@ -1668,7 +1668,7 @@ def CACER_shared_energy_for_valorization():
         - Updates the recap YAML file with percentage of consumer withdrawals on total.
     """
 
-    print(blue('\nCalculating shared energy for valorization:', ['bold']))
+    print(blue('\nCalculating shared energy for valorization:'))
           
     config = yaml.safe_load(open("config.yml", 'r'))
     check_file_status(config["filename_CACER_energy_monthly"])
@@ -1851,7 +1851,7 @@ def CACER_shared_energy_for_valorization():
 
     add_to_recap_yml("perc_prelievi_consumer_su_totale", perc_prelievi_consumer_su_totale)
 
-    print("\n Shared energy for Valorizzazione exported!")
+    print("\n**** Shared energy for Valorizzazione exported! ****")
 
 ###############################################################################################################################
 

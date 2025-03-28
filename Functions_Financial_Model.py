@@ -252,7 +252,7 @@ def create_users_bill():
 
         run_user_type_bill(user_type)
 
-    print("Bills calculation completed")
+    print("\n**** Bills calculation completed! ****")
 
 def aggregate_CACER_bills():
     """The function aggregates the electricity bills for all users in the CACER, stakeholders and configurations, which is needed as input for the financial model.
@@ -310,7 +310,7 @@ def aggregate_CACER_bills():
         df_agg_pv.to_excel(writer, sheet_name="pv")
         writer.close()
 
-    print("CACER bills aggregated!")
+    print("\n**** CACER bills aggregated! ****")
 ############################################################################################################################
 
 def contractual_power_to_power_range(contractual_power):
@@ -420,7 +420,7 @@ def incentives():
     # calculating the TIP for each plant, based on power capacity, location and PNRR
     incentivized_plants = [plant for plant in registry_plants if registry_plants[plant]["new_plant"]]
     for plant in incentivized_plants:
-        print("\nPlant: " + plant)
+        print("\nPlant: " + blue(plant))
         
         # 2) plant capacity
         plant_power_capacity = max(registry_plants[plant]["pv"], registry_plants[plant]["wind"])
@@ -519,7 +519,7 @@ def incentives():
     # It is currently assumed that the threshold on the Surplus calculation depends on the max PNRR found in all the plants. 
 
     max_grant_pnrr = max(0, max([registry_plants[plant]["grant_pnrr"] for plant in registry_plants if not np.isnan(registry_plants[plant]["grant_pnrr"])]))
-    print("The max_grant_pnrr found is: ", max_grant_pnrr)
+    print("\nThe max_grant_pnrr found is: ", max_grant_pnrr)
     surplus_threshold = 0.55 * (grant_pnrr == 0) + 0.45 * (grant_pnrr > 0) # upperbound threshold for the shared energy
     print("The surplus threshold is: ", surplus_threshold)
 
@@ -572,7 +572,7 @@ def incentives():
     # CACER_fees_value = CACER_fees() # DA VERIFICARE DUPLICAZIONE 
     ## add_to_input_FM_yml("opex_CACER_GSE_fees", CACER_fees_value)
 
-    print("Incentives calculation complete!")
+    print("\n**** Incentives calculation completed! ****")
 
 ###############################################################################################################################
 
@@ -584,7 +584,7 @@ def RID_calculation():
     The RID is the NOMINAL cash flow, meaning the inflation is not yet considered !
     """
 
-    print(blue("\nCalculate RID:", ['bold', 'underlined']))
+    print(blue("\nCalculate RID:\n", ['bold', 'underlined']))
 
     config = yaml.safe_load(open("config.yml", 'r'))
     check_file_status(str(config['filename_output_csv_GSE_RID_fees'])) 
@@ -707,7 +707,7 @@ def PMG_check_dict():
 
         # print(str(user) + " completed!")
 
-    print('Check PMG concessions: \n' , PMG_check_dict)
+    print('\nCheck PMG concessions: \n' , PMG_check_dict)
 
     print("Checking PMG concessions for all users completed!")
 
@@ -1048,7 +1048,7 @@ def aggregate_CACER_RID():
             rid["CER"] = rid["CER"] + rid[user].multiply(number_of_users)
 
     rid.to_csv(config["filename_output_csv_RID_active_CACER"])
-    print("\nAggregato RID CACER salvato")
+    print("\n**** Aggregated RID CACER (energy sold revenues) created! ****")
 
 ####################################################################################################################################
 
@@ -1080,6 +1080,9 @@ def FM_template():
     - calculation of the discount factors for each user category
     The output is a csv file, used as template used as baseline for the next cashflow calculations.
     """
+
+    print(blue("Creating FM template:\n"))
+
     config = yaml.safe_load(open("config.yml", 'r'))
     
     app = xw.App(visible = False)
@@ -1129,6 +1132,9 @@ def FM_template():
     df.set_index("month_number", inplace=True)
 
     df.to_csv(config["filename_FM_template"])
+
+    print("**** FM template created! ****")
+
     wb.close()
     app.quit()
 
@@ -1174,6 +1180,8 @@ def create_subscription_matrix():
     columns = month_number
     """
     
+    print(blue("\nCreating subscription matrix:"))
+
     config = yaml.safe_load(open("config.yml", 'r'))
 
     # Read the membership matrix
@@ -1194,12 +1202,16 @@ def create_subscription_matrix():
     # Save the subscription matrix
     df.T.to_csv(config["filename_subscription_matrix"])
 
+    print("\n**** Subscription matrix created! ****")
+
 ####################################################################################################################################
 def create_ownership_matrix():
     """ Generates a time-dependant matrix for each plant, indicating the ownership shares of each user/third party. it is similar to the investment matrix, which is just a snapshot of the ownership matrix
     at disburnment phase needed to allocate CAPEX between the users. The ownership matrix depends on the entry-exit of investors and players (such as an ESCo, which handover the asset after cetain number of years) as asset owners. 
     The ownership matrix is needed to establish, for each month of the project, which are the users bearing the OPEX and receinving the energy sales (RID) from GSE.  
     """
+
+    print(blue("\nCreating ownership matrix:"))
 
     config = yaml.safe_load(open("config.yml", 'r'))
 
@@ -1304,12 +1316,14 @@ def create_ownership_matrix():
     wb.close()
     app.quit()
 
-    print("\nOwnership matrix created")
+    print("\n**** Ownership matrix created! ****")
 
 def create_investment_matrix():
     """ Generates a non time-dependant investment matrix for each plant, indicating the investment shares of each user/third party, 
     needed to allocate CAPEX between the users. The sum of each plant shares is 100%. 
     """
+
+    print(blue("\nCreating Investment Matrix:\n"))
 
     config = yaml.safe_load(open("config.yml", 'r'))
 
@@ -1378,6 +1392,9 @@ def create_investment_matrix():
 
     inv_mat.replace(0,"").to_csv(config["filename_investment_matrix"])
     print(inv_mat.replace(0,"")*100)
+
+    print("\n**** Investment matrix created! ****")
+
     wb.close()
     app.quit()
 
@@ -1393,6 +1410,9 @@ def create_repartition_matrix():
                 economic value for social purposes, etc
     3) surplus: shares of the TIP and Valorization for each user EXCEEDING THE SURPLUS THRESHOLD INDICATED BY CACER DECREE (55% or 45% based on access to PNRR funding)
     """
+
+    print(blue("\nCreating repartition matrix:"))
+
     config = yaml.safe_load(open("config.yml", 'r'))
     recap = yaml.safe_load(open(config["filename_recap"], 'r'))
     output_file = config["filename_repartition_matrix"]
@@ -1605,6 +1625,8 @@ def create_repartition_matrix():
 
         df.to_excel(writer, sheet_name= case) #saving for the record
 
+    print("\n**** Repartition Matrix successfully created! ****")
+
     writer.close()
 
 ####################################################################################################################################
@@ -1774,7 +1796,7 @@ def cash_flows_per_user(user = "CACER"):
 
     ################################################### ASSETS ###############################################################
     if user_plants != []:
-        print(f"\nUser {user} owning:")
+        print(f"\nUser {blue(user)} owning:")
 
     for plant in user_plants:
 
@@ -2052,7 +2074,7 @@ def cash_flows_for_all_plants():
         cash_flows_per_plant(plant)
         print(f"Plant {plant} capex calculation successful")
     
-    print("\nAll plants Capex calculation executed")
+    print("\n**** All plants Capex calculation executed! ****")
 
 def cash_flows_for_all_users():
     """ function to loop the capex and D&A calculation over all the users. Chronologically, this step must come after the 
@@ -2073,7 +2095,7 @@ def cash_flows_for_all_users():
             continue # skipping dummy users
 
         cash_flows_per_user(user)
-        print(f"User {user} calculation successful")
+        print(f"User {blue(user)} calculation successful\n")
     
     # CACER
     if not recap["type_of_cacer"] == "NO_CACER":
@@ -2085,7 +2107,7 @@ def cash_flows_for_all_users():
     # df_social_fund.T.to_excel(config["foldername_finance_users"]+"//social_fund.xlsx", sheet_name= "totals")
     df_social_fund.T.to_excel(config["foldername_finance_users"]+"//social_fund.xlsx", sheet_name= "CACER")
 
-    print("\nAll Users Capex calculation executed")
+    print("\n**** All Users Capex calculation executed! ****")
     
 def cash_flows_per_plant(plant):
     """Core Fìfunction for the plant cash flows, it generates a breakdown of non energy-related cashflows, which are:
@@ -2104,7 +2126,7 @@ def cash_flows_per_plant(plant):
     registry_plants = yaml.safe_load(open(config["filename_registry_plants_yml"], 'r'))
 
     if not registry_plants[plant]["new_plant"]:
-        print(f"Plant {plant} existed before the CACER constitution, so the capex calculation will not be performed")
+        print(f"Plant {blue(plant)} existed before the CACER constitution, so the capex calculation will not be performed")
         #exiting the function
         return 
 
@@ -2135,7 +2157,7 @@ def cash_flows_per_plant(plant):
     # CAPEX AND AMORTIZATION #################################################################################
     ##########################################################################################################
 
-    print(f"\nPlant: {plant} of {registry_plants[plant]['pv'] + registry_plants[plant]['wind']}kW and {registry_plants[plant]['battery']}kWh")
+    print(f"\nPlant: {blue(plant)} of {registry_plants[plant]['pv'] + registry_plants[plant]['wind']}kW and {registry_plants[plant]['battery']}kWh")
 
     user_category = registry_plants[plant]["category"]
     df = get_FM_template() # dataframe initialization
@@ -2474,7 +2496,6 @@ def pnrr_deadline_check(df, disbursment_month, commissioning_month):
     return True
 
 def DCF_analysis(user):
-    # def DCF_analysis(user, df):
 
     """
     Perform a Discounted Cash Flow (DCF) analysis on a given user and saves results to user's Excel file.
@@ -2850,6 +2871,8 @@ def aggregate_FM():
         aggregate_FM_single_group(flag_configuration=False, user_group=stakeholder)
 
     aggregate_FM_single_group(user_group="project")
+
+    print("\n**** FM for configurations aggregated! ****")
     
 ####################################################################################################################################
 
@@ -2869,3 +2892,4 @@ def suppress_printing(func, *args, **kwargs):
     """
     with contextlib.redirect_stdout(io.StringIO()):
         return func(*args, **kwargs)
+

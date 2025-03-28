@@ -169,7 +169,7 @@ def generate_calendar():
     monthly_calendar["month_number"] = np.linspace(1, len(monthly_calendar),len(monthly_calendar)).astype(int)
     monthly_calendar[["month_number","month"]].to_csv(filename_monthly_calendar,index=True)
 
-    print("Calendar successfully exported!\n")
+    print("\n**** Calendar successfully exported! ****\n")
 
 ##########################################################
 
@@ -247,6 +247,8 @@ def generate_users_yml(base=36):
     Inputs: 
         base: the base of the user IDs. can be base=10 (then users ID will be u_009, u_010, ..., u_999) or base=36 (then users ID will be u_009, u_00A, u_00B, ... , u_ZZZ). We can have base^3 users
     """
+
+    print(blue("\nGenerating registry_user_types.yml and registry_user.yml:\n"))
 
     config = yaml.safe_load(open("config.yml", 'r')) # opening file config
     filename_recap = config['filename_recap']
@@ -348,7 +350,7 @@ def generate_users_yml(base=36):
     add_to_recap_yml("type_of_cacer", config["type_of_cacer"])
 
     #some statistics to check
-    print(len(user_types_list.keys()), " CER members types created")
+    print(len(user_types_list.keys()), " CACER members types created")
 
     print("List of users in active configuration:")
     prosumers = sum([user_types_list[user]["num"] for user in user_types_list.keys() if user_types_list[user]["type"] == "prosumer"])
@@ -360,7 +362,7 @@ def generate_users_yml(base=36):
     add_to_recap_yml("numero_producers", producers)
 
     consumers = sum([user_types_list[user]["num"] for user in user_types_list.keys() if user_types_list[user]["type"] == "consumer"])
-    print(consumers, " consumers")
+    print(consumers, " consumers\n")
     add_to_recap_yml("numero_consumers", consumers)
 
     dummy_users = [user for user in user_types_list.keys() if user_types_list[user]["dummy_user"]]
@@ -439,12 +441,14 @@ def generate_users_yml(base=36):
     #saving as csv
     pd.DataFrame.from_dict(all_users_list).T.to_csv(config["filename_registry_users_csv"])
 
-    print("\nRegistry users complete")
+    print("\n**** Registry users completed! ****")
 
 ##########################################################
 
 def generate_plant_yml():
     """from the excel file, generates the yml as dictionary, without nesting"""
+
+    print(blue("\nGenerating plant yml:"))
 
     config = yaml.safe_load(open("config.yml", 'r'))
     recap = yaml.safe_load(open(config['filename_recap'], 'r'))
@@ -492,7 +496,7 @@ def generate_plant_yml():
     #saving as csv
     df_plant.to_csv(config["filename_registry_plants_csv"])
 
-    print("\nRegistry plants complete")
+    print("\n**** Registry plants completed! ****")
 
 ##########################################################
 
@@ -644,7 +648,7 @@ def load_profile_single_user(df, user):
     # we calculate the energy consumption for the specific datapoint
     df["load_active_adjusted"] = df["load_active"] * df["weekly_correction"] * df["yearly_correction"] * (1 + df["random_variation"])
 
-    print("user created: ", user, "\t\t user type: ", load_profile_id )
+    print("user created: ", blue(user), "\t\t user type: ", load_profile_id )
 
     return df.set_index("datetime")["load_active_adjusted"] #returning the load adjusted with the datetime as the unique index, same format of the df_results
 
@@ -1159,6 +1163,8 @@ def plant_operation_matrix():
     Each cash flow will be evaluated separately in each dedicated function
     df has plants on index and month_number on columns"""
 
+    print(blue("\nGenerating plant operation matrix:"))
+
     config = yaml.safe_load(open("config.yml", 'r'))
     user_type_set = yaml.safe_load(open(config["filename_registry_user_types_yml"], 'r'))
     user_types_producing = [user_type for user_type in user_type_set if user_type_set[user_type]["producing"]]
@@ -1197,7 +1203,7 @@ def plant_operation_matrix():
 
     writer.close()
 
-    print("\nPlant Operation Matrix created")
+    print("\n**** Plant Operation Matrix created! ****")
 
 ################################################################################################################################
 
@@ -1205,6 +1211,8 @@ def membership_matrix():
     """generating the membership matrix, which reports the precence or absense for each user in the CACER in each month time for the project lifetime, as 1 or 0.
     It is needed to compute several cashflows (such as incentives repartition) and energy flows (such shared energy)
     Generating also the entry month recording, to facilitate the entry fee calculation and user entries statistics"""
+
+    print(blue("\nGenerating Membership Matrix:"))
 
     config = yaml.safe_load(open("config.yml", 'r'))
     users_set = yaml.safe_load(open(config["filename_registry_users_yml"], 'r'))
@@ -1233,7 +1241,7 @@ def membership_matrix():
     users_present_month_1 = list(df_t[df_t[1] == 1].index)
     add_to_recap_yml("users_present_month_1", users_present_month_1)
 
-    print("\nMembership Matrix created")
+    print("\n **** Membership Matrix created! ****")
 
 ################################################################################################################################
 
@@ -1374,6 +1382,25 @@ def kill_excel_processes():
         if proc.info['name'] and 'excel' in proc.info['name'].lower():
             try:
                 os.kill(proc.info['pid'], signal.SIGTERM)
-                print(f"Killed Excel process: {proc.info['pid']}")
+                # print(f"Killed Excel process: {proc.info['pid']}")
             except Exception as e:
                 print(f"Could not kill Excel process {proc.info['pid']}: {e}")
+    
+    print("\n**** All excel processes killed! ****")
+
+################################################################################################################################
+
+def setting_CACER_scenario(case_denomination, CACER_type, repartition_scheme):
+    """Setting the CACER scenario.
+    Args:
+        case_denomination (string): denomination of the case
+        CACER_type (string): type of CACER
+        repartition_scheme (string): repartition scheme for incentives
+    """
+
+    print(blue("\nSetting input financial simulation:", ['bold', 'underlined']), '\n')
+
+    add_to_recap_yml(key = "case_denomination", value = case_denomination)
+    add_to_recap_yml(key = "type_of_cacer", value = CACER_type)
+    edit_incentive_repartition_scheme(repartition_scheme)
+    print("**** All inputs setted! ****")
