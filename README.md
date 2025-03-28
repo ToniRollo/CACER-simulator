@@ -49,7 +49,7 @@ You’ll need:
 
 ---
 
-🚀 Coming Soon
+🔥 **New drop incoming**
 
 ## Main Functionalities
 
@@ -59,8 +59,7 @@ You’ll need:
 
 `work in progress...`
 
-🔥 New drop incoming
-`Pay attention: A tutorial main will be released later for this module!`
+`🚨 Pay attention: A tutorial main will be released later for this module!`
 
 ### 2. BESS Simulator
 
@@ -70,8 +69,7 @@ You’ll need:
 
 `work in progress...`
 
-🔥 New drop incoming
-`Pay attention: A tutorial main will be released later for this module!`
+`🚨 Pay attention: A tutorial main will be released later for this module!`
 
 #### 3.1. Demand Side Engagement Simulator
 
@@ -101,5 +99,4 @@ You’ll need:
 
 `work in progress...`
 
-🔥 New drop incoming
-`Pay attention: A tutorial main will be released later for this module!`
+`🚨 Pay attention: A tutorial main will be released later for this module!`
