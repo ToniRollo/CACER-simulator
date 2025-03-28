@@ -257,6 +257,8 @@ def create_users_bill():
 def aggregate_CACER_bills():
     """The function aggregates the electricity bills for all users in the CACER, stakeholders and configurations, which is needed as input for the financial model.
     """
+
+    print(blue("\nAggregate bills for the entire CACER:\n", ['bold', 'underlined']))
     
     config = yaml.safe_load(open("config.yml", 'r'))
     recap   = yaml.safe_load(open(config["filename_recap"], 'r'))
@@ -1018,6 +1020,8 @@ def aggregate_CACER_RID():
     """
     Function to aggregate the RID bills for all users in the CACER, needed as input for the financial model.
     """
+
+    print(blue("\nAggregate RID for the entire CACER:\n", ['bold', 'underlined']))
 
     config = yaml.safe_load(open("config.yml", 'r'))
     recap   = yaml.safe_load(open(config["filename_recap"], 'r'))
@@ -2035,6 +2039,8 @@ def cash_flows_per_user_per_plant(plant, user):
 def cash_flows_for_all_plants():
     """Function to execute the capex and D&A calculation over all the plants"""
 
+    print(blue("\nCalculate cash flows for all power plants:", ['bold', 'underlined']), '\n')
+
     plant_capex_breakdown() # updating the "registry_plants.yml" with capex details needed for the incoming steps
 
     config = yaml.safe_load(open("config.yml", 'r'))
@@ -2051,6 +2057,8 @@ def cash_flows_for_all_plants():
 def cash_flows_for_all_users():
     """ function to loop the capex and D&A calculation over all the users. Chronologically, this step must come after the 
     cash_flows_for_all_plants() execution, as takes the plants data from the plants cash flows"""
+
+    print(blue("\nCalculate cash flows for all users:", ['bold', 'underlined']), '\n')
 
     config = yaml.safe_load(open("config.yml", 'r'))
     recap = yaml.safe_load(open(config["filename_recap"], 'r'))

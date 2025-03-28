@@ -1367,6 +1367,9 @@ def save_simulation_results(simulation_name="test"):
 ################################################################################################################################
 
 def kill_excel_processes():
+
+    print(blue("\nKilling all excel process in backgroud:", ['bold', 'underlined']), '\n')
+
     for proc in psutil.process_iter(['pid', 'name']):
         if proc.info['name'] and 'excel' in proc.info['name'].lower():
             try:

@@ -284,7 +284,7 @@ def CACER_energy_flows():
         CSV files for each user with energy flow data, saved to the configured output directory.
     """
 
-    print(blue("\nGenerate all CER energy flows:", ['bold', 'underlined']), '\n')
+    print(blue("\nGenerate all CACER energy flows:", ['bold', 'underlined']), '\n')
 
     # using global variables to avoid reading the file every time
     global t, user, user_type, battery_cumulative_charge, SOCkWh_tm1, result, load_profiles, generation, dod, battery_derating_factor, ε_roundtrip_halfcycle, user_types_set, config
