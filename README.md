@@ -85,7 +85,7 @@ You’ll need:
 
 `work in progress...`
 
-#### 5.1. Incentives repartition Methodology
+#### 5.2. Incentives repartition Methodology
 
 `work in progress...`
 
