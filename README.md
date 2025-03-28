@@ -31,7 +31,6 @@ The simulator supports the evaluation of different collective self-consumption s
 - `config.yml`: configuration file with key parameters for the simulations and path of file and forlders.
 - `main - CACER tutorial.ipynb`: interactive Jupyter Notebook with step-by-step instructions for using the CACER simulator.
 - `reporting_v3.ipynb`: notebook to generate performance reports.
-- `reporting_v3.py`: standalone script for report generation.
 - `users CACER.xlsx`: example Excel file with user data.
 
 ## Prerequisites
@@ -47,3 +46,41 @@ You’ll need:
 
    ```bash
    git clone https://github.com/ToniRollo/CACER-simulator.git
+
+---
+
+## Main Functionalities
+
+'work in progress..'
+
+### Photovoltaic Productivity Simulator
+
+'work in progress..'
+
+### BESS Simulator
+
+'work in progress..'
+
+### Load Profile Domestic Users Emulator
+
+'work in progress..'
+
+#### Demand Side Engagement Simulator
+
+'work in progress..'
+
+#### Optimal Demand Side Management Simulator
+
+'work in progress..'
+
+### Bills Simulator
+
+'work in progress..'
+
+### Discounted Cash Flow Simulator
+
+'work in progress..'
+
+### Grid Impact Simulator
+
+'work in progress..'
