@@ -1,29 +1,22 @@
 import plotly.express as px
 import plotly.graph_objs as go
-
 import numpy as np
 import pandas as pd
 import numpy as np
 import math
 import random
-
 from datetime import date, datetime, timedelta
-
 import yaml
 import pickle
-
 import holidays
 import calendar
-
 import warnings
-
 from tqdm import tqdm
 from simple_colors import *
-
 import contextlib
 import io
-
 from files.energy.input.DSM_optimizer.main import ott_year
+from simple_colors import *
 
 ###################################################################################################################
 
@@ -1004,6 +997,8 @@ def create_emulated_users(flag_last_dict = False, flag_optDSM = False, flag_all_
     Outputs:
         all_user_df: This dataframe has an unstacked structure and is created with timestep on rows (entire time range) and users
     """
+
+    print(blue("\nCreate load profile for emulated users:", ['bold', 'underlined']), '\n')
 
     config = yaml.safe_load(open("config.yml", 'r'))
     filename_registry_users = config['filename_registry_users_yml']

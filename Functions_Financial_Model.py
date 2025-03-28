@@ -14,10 +14,11 @@ import io
 import yaml
 import xlwings as xw
 import glob
-from Functions_Generali import check_file_status, province_to_region, get_monthly_calendar, add_to_recap_yml, clear_folder_content, get_calendar #,add_to_input_FM_yml
+from Functions_General import check_file_status, province_to_region, get_monthly_calendar, add_to_recap_yml, clear_folder_content, get_calendar #,add_to_input_FM_yml
 from Functions_Energy_Model import get_input_gens_analysis
 import warnings
 warnings.filterwarnings("ignore")
+from simple_colors import *
 
 ###############################################################################################################################
 
@@ -232,6 +233,9 @@ def run_user_type_bill(user_type):
 def create_users_bill():
     """ running the bill calculation for all users, filling the bills folder with the results
     """
+
+    print(blue("\nCreate user bills:", ['bold', 'underlined']), '\n')
+
     config  = yaml.safe_load(open("config.yml", 'r'))
     user_type_set  = yaml.safe_load(open(config["filename_registry_user_types_yml"], 'r'))
 
@@ -371,6 +375,8 @@ def incentives():
     Outputs:
         - Exports the calculated incentives and valorization data to a specified output file
     """
+
+    print(blue("\nCalculate incentives:", ['bold', 'underlined']), '\n')
 
     config = yaml.safe_load(open("config.yml", 'r'))
     recap = yaml.safe_load(open(config["filename_recap"], 'r'))
@@ -575,6 +581,8 @@ def RID_calculation():
     - calculate the GSE fee tha every user must pay to GSE for the RID 
     The RID is the NOMINAL cash flow, meaning the inflation is not yet considered !
     """
+
+    print(blue("\nCalculate RID:", ['bold', 'underlined']))
 
     config = yaml.safe_load(open("config.yml", 'r'))
     check_file_status(str(config['filename_output_csv_GSE_RID_fees'])) 
@@ -1049,6 +1057,9 @@ def FM_initialization():
     - the repartition matrix
     - the subscription matrix.
     """
+
+    print(blue("\nInitialize financial simulation:", ['bold', 'underlined']), '\n')
+
     FM_template()
     create_investment_matrix()
     create_ownership_matrix()
@@ -2573,6 +2584,8 @@ def organize_simulation_results_for_reporting():
     """recreating the old structured filename_FM_results_last_simulation file. 
     This is temporary, to be organized in a less chaotic way"""
 
+    print(blue("\nOrganize results for report:", ['bold', 'underlined']), '\n')
+
     config = yaml.safe_load(open("config.yml", 'r'))
 
     check_file_status(config["filename_FM_results_last_simulation"])
@@ -2812,6 +2825,8 @@ def aggregate_FM():
 
     The aggregated data is exported to Excel files named after each user group.
     """
+
+    print(blue("\nRun financial model for each configurations:", ['bold', 'underlined']), '\n')
 
     config = yaml.safe_load(open("config.yml", 'r'))
     recap = yaml.safe_load(open(config["filename_recap"], 'r'))

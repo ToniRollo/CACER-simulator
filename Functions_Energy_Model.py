@@ -1,4 +1,4 @@
-from Functions_Generali import (check_file_status, clear_folder_content, add_to_recap_yml, check_folder_exists, get_calendar, location_italian_to_english)
+from Functions_General import (check_file_status, clear_folder_content, add_to_recap_yml, check_folder_exists, get_calendar, location_italian_to_english)
 import pandas as pd
 import numpy as np
 import calendar
@@ -24,6 +24,7 @@ import plotly.graph_objs as go
 from geopy.geocoders import Nominatim
 import warnings
 warnings.filterwarnings("ignore")
+from simple_colors import *
 
 ###################################################################################################################
 
@@ -282,6 +283,8 @@ def CACER_energy_flows():
     Output:
         CSV files for each user with energy flow data, saved to the configured output directory.
     """
+
+    print(blue("\nGenerate all CER energy flows:", ['bold', 'underlined']), '\n')
 
     # using global variables to avoid reading the file every time
     global t, user, user_type, battery_cumulative_charge, SOCkWh_tm1, result, load_profiles, generation, dod, battery_derating_factor, ε_roundtrip_halfcycle, user_types_set, config
@@ -554,6 +557,8 @@ def simulate_configuration_productivity():
     Outputs:
         output_gen_pv.csv                   .csv file
     """
+
+    print(blue("\nGenerate production profile for user types added:", ['bold', 'underlined']))
 
     print("\n0. Simulation of the productivity for each generators ")
     result_ac_energies_gens = suppress_printing_no_args(simulate_gens_productivity)
@@ -1854,6 +1859,9 @@ def CACER_shared_energy():
     """
     Calls the functions to calculate the shared energy for the TIP and the valorization.
     """
+
+    print(blue("\nCalculate CACER shared energy:", ['bold', 'underlined']))
+
     CACER_shared_energy_for_TIP()
 
     CACER_shared_energy_for_valorization()

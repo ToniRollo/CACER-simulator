@@ -21,6 +21,7 @@ yaml.SafeDumper.add_representer(collections.defaultdict, Representer.represent_d
 from ruamel.yaml import YAML
 import signal
 import psutil
+from simple_colors import *
 
 ##########################################################
 
@@ -28,6 +29,8 @@ def initialization_users():
     """
     This function aggregates the initialization processes needed in the simulation.
     """
+
+    print(blue("\nGenerate parameters in yaml file from xlsx file:", ['bold', 'underlined']), '\n')
 
     generate_users_yml(base=36)
 
@@ -50,6 +53,8 @@ def generate_calendar():
     Outputs:
         filename_calendar file with datetime, working_day (0=monday, 6=sunday), holiday (True/False) and Tariff time slots (1,2,3)
     """
+
+    print(blue("\nCreate calendar:", ['bold', 'underlined']), '\n')
 
     # getting all needed inputs from config.yml  
     config = yaml.safe_load(open("config.yml", 'r'))
@@ -652,6 +657,8 @@ def load_profile_all_users():
     Exports:
 
     """
+
+    print(blue("\nGenerate load profile for user types added:", ['bold', 'underlined']), '\n')
 
     global xls, month_factor, year_factor, user_load_arera, region, delta_t, wb, output_all_users, rand_factor, real_profile_df, emulated_load_profile_df
 
@@ -1334,6 +1341,8 @@ def copy_folder_content(source_folder, destination_folder):
 def save_simulation_results(simulation_name="test"):
     """Saving the main simulation results in a folder with the simulation_name, for the record"""
     
+    print(blue("\nSave all finance results:", ['bold', 'underlined']), '\n')
+
     config = yaml.safe_load(open("config.yml", 'r'))
     recap = yaml.safe_load(open(config["filename_recap"], 'r'))
     destination_folder = config["foldername_result_finance"] + "\\" + simulation_name
