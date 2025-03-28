@@ -57,13 +57,13 @@ You’ll need:
 
 ### 1. Photovoltaic Productivity Simulator
 
-`work in progress...`
+`⏳ work in progress...`
 
 `🚀 A tutorial main will be released later for this module!`
 
 ### 2. BESS Simulator
 
-`work in progress...`
+`⏳ work in progress...`
 
 ### 3. Load Profile Domestic Users Emulator
 
