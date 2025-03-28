@@ -49,7 +49,9 @@ You’ll need:
 
 ---
 
-🔥 **New drop incoming**
+## 🔥 **New drop incoming!!**
+
+---
 
 ## Main Functionalities
 
@@ -91,7 +93,7 @@ You’ll need:
 
 `work in progress...`
 
-#### 5.2. Incentives repartition Methodology
+#### 5.2. Incentives Repartition Methodology
 
 `work in progress...`
 
