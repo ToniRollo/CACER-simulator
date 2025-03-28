@@ -51,36 +51,44 @@ You’ll need:
 
 ## Main Functionalities
 
-'work in progress..'
+`work in progress...`
 
-### Photovoltaic Productivity Simulator
+### 1. Photovoltaic Productivity Simulator
 
-'work in progress..'
+`work in progress...`
 
-### BESS Simulator
+### 2. BESS Simulator
 
-'work in progress..'
+`work in progress...`
 
-### Load Profile Domestic Users Emulator
+### 3. Load Profile Domestic Users Emulator
 
-'work in progress..'
+`work in progress...`
 
-#### Demand Side Engagement Simulator
+#### 3.1. Demand Side Engagement Simulator
 
-'work in progress..'
+`work in progress...`
 
-#### Optimal Demand Side Management Simulator
+#### 3.2. Optimal Demand Side Management Simulator
 
-'work in progress..'
+`work in progress...`
 
-### Bills Simulator
+### 4. Bills Simulator
 
-'work in progress..'
+`work in progress...`
 
-### Discounted Cash Flow Simulator
+### 5. Discounted Cash Flow Simulator
 
-'work in progress..'
+`work in progress...`
 
-### Grid Impact Simulator
+#### 5.1. Funding Scheme 
 
-'work in progress..'
+`work in progress...`
+
+#### 5.1. Incentives repartition Methodology
+
+`work in progress...`
+
+### 6. Grid Impact Simulator
+
+`work in progress...`
